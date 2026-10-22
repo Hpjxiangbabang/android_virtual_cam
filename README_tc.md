@@ -2,16 +2,18 @@
 
 [简体中文](./README.md) | [繁體中文](./README_tc.md) | [English](./README_en.md)
 
-[![Stars](https://img.shields.io/github/stars/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/stargazers)
-[![Forks](https://img.shields.io/github/forks/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/network/members)
-[![Last commit](https://img.shields.io/github/last-commit/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/commits/master)
-[![Release](https://img.shields.io/github/v/release/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
-[![License](https://img.shields.io/github/license/Hpjxiangbabang/android_virtual_cam?style=flat-square)](./LICENSE)
-[![Android](https://img.shields.io/badge/Android-10%2B-3DDC84?style=flat-square&logo=android&logoColor=white)](#環境要求)
+[![GitHub Repo stars](https://img.shields.io/github/stars/Hpjxiangbabang/android_virtual_cam?style=social)](https://github.com/Hpjxiangbabang/android_virtual_cam/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Hpjxiangbabang/android_virtual_cam)](https://github.com/Hpjxiangbabang/android_virtual_cam/network/members)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Hpjxiangbabang/android_virtual_cam)](https://github.com/Hpjxiangbabang/android_virtual_cam/commits/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/Hpjxiangbabang/android_virtual_cam)](https://github.com/Hpjxiangbabang/android_virtual_cam/graphs/contributors)
+[![GitHub Release](https://img.shields.io/github/v/release/Hpjxiangbabang/android_virtual_cam)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![License](https://img.shields.io/github/license/Hpjxiangbabang/android_virtual_cam)](./LICENSE)
+[![Android](https://img.shields.io/badge/Android-10%2B-brightgreen?logo=android&logoColor=white)](#環境要求)
 
-[![下載 APK](https://img.shields.io/badge/下載-APK-2ea44f?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
-[![回報問題](https://img.shields.io/badge/回報-Issues-1f6feb?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/issues)
-[![上游倉庫](https://img.shields.io/badge/上游-w2016561536-6e7681?style=for-the-badge)](https://github.com/w2016561536/android_virtual_cam)
+[![Download](https://img.shields.io/badge/Download-APK-blue?logo=android&logoColor=white)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![Issues](https://img.shields.io/badge/Issues-report-blue?logo=github&logoColor=white)](https://github.com/Hpjxiangbabang/android_virtual_cam/issues)
+[![LSPosed](https://img.shields.io/badge/LSPosed-Xposed%20module-blue?logo=android&logoColor=white)](https://github.com/LSPosed/LSPosed)
+[![Upstream](https://img.shields.io/badge/Upstream-android__virtual__cam-blue?logo=github&logoColor=white)](https://github.com/w2016561536/android_virtual_cam)
 
 VCAM Next 是一個 LSPosed 模組，用來替換目標應用程式的相機輸入。應用程式開啟相機時，預覽和拍照都使用已選定的影片或圖片。
 
