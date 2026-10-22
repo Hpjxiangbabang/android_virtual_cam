@@ -1,75 +1,120 @@
-# android_virtual_cam（VCAM Next）
+# VCAM Next
 
 [简体中文](./README.md) | [繁體中文](./README_tc.md) | [English](./README_en.md)
 
-这是 [w2016561536/android_virtual_cam](https://github.com/w2016561536/android_virtual_cam) 的继续维护版本。上游自 2022 年起没有更新。本仓库的安装包名是 `io.github.hpjxiangbabang.vcam`，应用名是 VCAM Next，不会覆盖原模块。原作者的版权和 MIT 许可证保留在 `LICENSE`。
+[![Stars](https://img.shields.io/github/stars/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/network/members)
+[![Last commit](https://img.shields.io/github/last-commit/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/commits/master)
+[![Release](https://img.shields.io/github/v/release/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![License](https://img.shields.io/github/license/Hpjxiangbabang/android_virtual_cam?style=flat-square)](./LICENSE)
+[![Android](https://img.shields.io/badge/Android-10%2B-3DDC84?style=flat-square&logo=android&logoColor=white)](#环境要求)
 
-# 请勿用于任何非法用途，所有后果自负！
+[![下载 APK](https://img.shields.io/badge/下载-APK-2ea44f?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![反馈问题](https://img.shields.io/badge/反馈-Issues-1f6feb?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/issues)
+[![上游仓库](https://img.shields.io/badge/上游-w2016561536-6e7681?style=for-the-badge)](https://github.com/w2016561536/android_virtual_cam)
 
-## 新版本内容
+VCAM Next 是一个 LSPosed 模块，用于替换目标应用的相机输入。应用打开相机时，预览和拍照都使用已选定的视频或图片。
 
-在保留原有「把视频变成任意应用摄像头」核心能力的基础上，管理端与配置体系完全重写：
+适用于需要可重复画面的演示、联调和拍摄流程。请勿用于任何违法用途，使用者自行承担使用后果。
 
-### 核心功能
+## 功能
 
-- **虚拟相机**：把本地视频/图片作为任意目标应用的摄像头画面（预览、预览回调、拍照全覆盖）
-- **源库管理**：在应用内通过系统文件选择器添加视频源、图片源（MIME 类型预设过滤，杜绝选错格式），不再需要手动摆放文件、创建标记文件
-- **应用绑定**：为每个目标应用单独指定源；未绑定的应用使用全局「当前源」
-- **播放器控制条**：声音（麦克风/视频声音）、上一个、暂停、下一个、列表，一键操作
-- **热切换**：切换源、暂停、声音变更即时生效，无需重启目标应用
-- **悬浮控制条**：目标应用相机被接管时自动出现——平时是一个可拖动的小图标，点开展开为控制条，点收起缩回
-- **免目标应用存储权限**：配置与媒体经模块内 Provider 通道下发，目标应用不需要任何文件权限（老版本需要目标应用读存储或手动拷贝私有目录的问题已解决）
-- **宽高适配**：目标请求分辨率与视频不一致时等比放入（黑边）/ 铺满 / 原样输出可选
-- **拍照替换**：拍照输出当前视频帧，不再需要预先准备固定图片
+**预览**  
+目标应用请求相机预览时，输出当前素材。
 
-### 支持平台
+**拍照**  
+拍摄结果为当前播放帧。
 
-- Android 10+（已在 MIUI Android 14 实测）
-- 需要 root + LSPosed（或兼容 Xposed 环境）
+**素材库**  
+通过系统文件选择器添加视频或图片。图片会转为循环视频。素材由模块提供，目标应用不需要存储权限。
 
-### 权限说明
+**按应用指定**  
+可为单个应用指定素材。未指定的应用使用当前素材。
 
-- 存储读写：管理源文件与配置（仅模块自身使用）
-- 显示在应用上层：悬浮控制条（首次使用请按应用内横幅提示授权）
-- 网络：模块内置本地源服务（仅 127.0.0.1）
+**播放控制**  
+主界面和悬浮控制条提供上一段、暂停、下一段，以及麦克风或视频音轨。切换在相机使用过程中生效。悬浮控制条收起时为一个可拖动图标。
 
-## 使用方法
+**画面比例**  
+素材尺寸与应用请求的分辨率不一致时，默认按比例放入，空白处为黑边，画面不拉伸。关闭该选项后按素材原始尺寸输出，此时两者需要一致。
 
-1. 安装本模块，在 LSPosed 中启用，并**勾选目标应用的作用域**（无需勾选系统框架）
-2. 打开 VCAM Next，按横幅提示授予存储权限与悬浮窗权限
-3. 「添加视频源」：从系统文件选择器选择一个视频；也可以「添加图片源」选择一张图片（自动生成循环缓存）
-4. 「应用绑定」：选择目标应用并指定使用哪个源；不绑定则跟随「当前源」
-5. 打开目标应用的相机，画面即为所选源
-6. 通话/拍摄过程中可用悬浮控制条（或回到主界面控制条）实时切换源、暂停、切换声音模式
+## 环境要求
 
-> 模块应用需保持运行（通知栏常驻前台服务）；若模块进程被杀，重新打开一次 VCAM Next 即可恢复。
+| 项目 | 要求 |
+| --- | --- |
+| 权限 | 已 root |
+| 框架 | [LSPosed](https://github.com/LSPosed/LSPosed)，或其他兼容的 Xposed 环境 |
+| 系统 | 建议 Android 10 及以上，最低 Android 5.0 |
+| 作用范围 | 只勾选需要替换相机的应用 |
 
-## 与旧版本（jpg 标记文件方式）的差异
+预览与拍照已在 Android 14 上验证。
 
-- 旧版的 `disable.jpg`、`no_toast.jpg`、`no-silent.jpg`、`fit_inside.jpg`、`1000.bmp` 等文件开关**全部废弃**，改为应用内配置（`DCIM/Camera1/config.json`，首次运行自动迁移旧开关）
-- 旧版要求视频分辨率与目标请求完全一致；新版默认等比放入，另有铺满与原样输出可选
-- 旧版拍照替换使用固定图片 `1000.bmp`；新版拍照输出当前视频帧
+## 安装
 
-## 构建
+应用包名：`io.virtualcam.android`
+
+1. 从 [Releases](https://github.com/Hpjxiangbabang/android_virtual_cam/releases) 安装 APK。发行包对应当前已发布版本；仓库中尚未发布的改动需自行编译。
+2. 在 LSPosed 中启用 VCAM Next，并勾选目标应用。
+3. 授予存储权限和悬浮窗权限。
+4. 强制停止目标应用后，重新打开其相机。
+
+包名变更后，系统将其视为新应用。设备上若仍有同名旧模块，或包名为 `com.example.vcam` 的原版模块，请先在 LSPosed 中停用。两个模块不能同时接管同一相机。
+
+模块通过前台服务保持运行。服务结束后，重新打开 VCAM Next。
+
+## 使用
+
+1. 添加视频或图片。
+2. 需要区分应用时，在「应用绑定」中指定素材。
+3. 打开目标应用的相机。
+4. 使用过程中，通过悬浮控制条或主界面切换素材、暂停，或更改声音来源。
+
+主界面显示当前素材。此处为空时，相机输入不会被替换。
+
+「设置与日志」记录目标应用请求的分辨率。内容相同的记录只更新时间。
+
+## 配置
+
+配置文件位于 `内部存储/DCIM/Camera1/config.json`。
+
+界面中的比例开关对应两种输出。配置文件还可指定另外两种：
+
+| `fit_mode` | 输出 |
+| --- | --- |
+| `0` | 等比放入，保留黑边 |
+| `1` | 等比放大至铺满，裁去超出部分 |
+| `2` | 拉伸至铺满 |
+| `3` | 按素材原始尺寸输出 |
+
+从使用标记文件的旧版升级时，`disable.jpg`、`no_toast.jpg`、`no-silent.jpg`、`fit_inside.jpg` 的状态会写入 `config.json`。此后以配置文件为准。
+
+## 从源码构建
+
+需要 JDK 17 或更高版本。
 
 ```bash
 ./gradlew assembleDebug
 ```
 
-产物位于 `app/build/outputs/apk/debug/`。
+安装包位于 `app/build/outputs/apk/debug/`。
 
-## 常见问题
+## 排查
 
-Q1. 前置摄像头方向不对？
-A1. 多数情况需要把视频水平翻转并旋转 90 度处理，视应用而定。
+| 现象 | 处理 |
+| --- | --- |
+| 仍是真实画面，或黑屏 | 确认 LSPosed 已勾选该应用，并在强制停止后重新打开；确认当前素材不为空；确认其他虚拟相机模块已停用 |
+| 更换素材后画面未变 | 等待数秒。若画面仍不更新，结束目标应用后重新打开 |
+| 悬浮控制条未出现 | 授予「显示在其他应用上层」。模块未接管该相机时不显示控制条 |
+| 前置画面方向不符 | 部分应用会将前置预览水平翻转并旋转 90°。按该应用的实际方向准备素材 |
 
-Q2. 目标应用画面黑屏？
-A2. 确认目标应用已加入 LSPosed 作用域并强停重启；确认已添加源且当前源可用（主界面「当前源」一行会显示）。
+## 反馈
 
-Q3. 切换源后画面没变？
-A3. 配置约 2 秒内生效；若目标应用相机长时间未重新渲染，重启一次目标应用。
+请通过 [Issues](https://github.com/Hpjxiangbabang/android_virtual_cam/issues) 提交。说明系统版本和目标应用，并附上「设置与日志」中的记录，以及 LSPosed 中本模块的日志。
 
-## 致谢
+## 许可
 
-- 上游项目 [w2016561536/android_virtual_cam](https://github.com/w2016561536/android_virtual_cam) 及其作者
-- 所有翻译贡献者（见提交历史）
+本项目以 [MIT](./LICENSE) 许可发布。版权归原作者 w2016561536（2021）及后续贡献者所有。
+
+VCAM Next 在 [android_virtual_cam](https://github.com/w2016561536/android_virtual_cam) 上继续开发：素材在应用内管理，可按应用指定来源，播放过程中可切换，拍照使用当前帧，并在分辨率不一致时保持画面比例。
+
+- 挂钩方式参考 [CameraHook](https://github.com/wangwei1237/CameraHook)
+- H.264 硬解码参考 [Android-VideoToImages](https://github.com/zhantong/Android-VideoToImages)

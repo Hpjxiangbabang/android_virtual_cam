@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,7 +21,7 @@ import java.util.Locale;
  * 两边不能直接共享变量，所以把要给人看的提示写到同一个文本文件。
  */
 public class AppLog {
-    public static final Uri LOG_URI = Uri.parse("content://io.github.hpjxiangbabang.vcam.log/line");
+    public static final Uri LOG_URI = Uri.parse("content://io.virtualcam.android.log/line");
     private static final String SEPARATOR = "\n--------\n";
     private static final int MAX_ENTRIES = 60;
 

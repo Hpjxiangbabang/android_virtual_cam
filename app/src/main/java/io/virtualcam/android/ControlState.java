@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 /**
  * 播放运行时控制状态（模块进程内的唯一权威，UI 写、Provider 读、hook 端轮询）。

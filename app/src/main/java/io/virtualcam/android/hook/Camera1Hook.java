@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.hook;
+package io.virtualcam.android.hook;
 
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -19,10 +19,10 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import io.github.hpjxiangbabang.vcam.HookMain;
-import io.github.hpjxiangbabang.vcam.engine.FrameBuffer;
-import io.github.hpjxiangbabang.vcam.engine.FrameFitter;
-import io.github.hpjxiangbabang.vcam.engine.VideoFrameSource;
+import io.virtualcam.android.HookMain;
+import io.virtualcam.android.engine.FrameBuffer;
+import io.virtualcam.android.engine.FrameFitter;
+import io.virtualcam.android.engine.VideoFrameSource;
 
 /**
  * Camera1 (android.hardware.Camera) hook，P1 重构版。

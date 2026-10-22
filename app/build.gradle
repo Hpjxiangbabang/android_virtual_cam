@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'io.github.hpjxiangbabang.vcam'
+    namespace 'io.virtualcam.android'
     compileSdk 35
 
     defaultConfig {
-        applicationId "io.github.hpjxiangbabang.vcam"
+        applicationId "io.virtualcam.android"
         minSdk 21
         targetSdk 26
         versionCode 2

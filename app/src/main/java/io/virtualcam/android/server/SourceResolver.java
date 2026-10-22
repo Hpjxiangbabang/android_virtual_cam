@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.server;
+package io.virtualcam.android.server;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,8 @@ import android.os.ParcelFileDescriptor;
 import java.io.File;
 import java.io.InputStream;
 
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.config.VcamConfig;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.config.VcamConfig;
 
 /**
  * 源名 → 可读媒体 的统一解析（MediaProvider 与源服务共用）。

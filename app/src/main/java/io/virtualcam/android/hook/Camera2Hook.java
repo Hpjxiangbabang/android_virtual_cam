@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.hook;
+package io.virtualcam.android.hook;
 
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
@@ -25,8 +25,8 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import io.github.hpjxiangbabang.vcam.HookMain;
-import io.github.hpjxiangbabang.vcam.engine.VideoFrameSource;
+import io.virtualcam.android.HookMain;
+import io.virtualcam.android.engine.VideoFrameSource;
 
 /**
  * Camera2 (android.hardware.camera2) hook，P1 重构版。

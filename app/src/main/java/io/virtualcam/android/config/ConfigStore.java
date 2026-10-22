@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.config;
+package io.virtualcam.android.config;
 
 import android.content.Context;
 import android.os.Environment;
@@ -93,7 +93,7 @@ public final class ConfigStore {
         if (c != null) {
             try {
                 c.getContentResolver().notifyChange(
-                        android.net.Uri.parse("content://io.github.hpjxiangbabang.vcam.media"), null);
+                        android.net.Uri.parse("content://io.virtualcam.android.media"), null);
             } catch (Throwable ignored) {
             }
         }

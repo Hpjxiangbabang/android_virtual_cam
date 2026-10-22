@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 public class FrameFitterTest {
     public static void main(String[] args) {

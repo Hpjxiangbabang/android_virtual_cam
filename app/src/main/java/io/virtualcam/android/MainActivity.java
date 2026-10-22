@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,16 +19,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import io.github.hpjxiangbabang.vcam.ControlState;
+import io.virtualcam.android.ControlState;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.config.VcamConfig;
-import io.github.hpjxiangbabang.vcam.engine.FrameFitter;
-import io.github.hpjxiangbabang.vcam.server.ImageVideoEncoder;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.config.VcamConfig;
+import io.virtualcam.android.engine.FrameFitter;
+import io.virtualcam.android.server.ImageVideoEncoder;
 
 /**
  * 管理端（P1）：开关全部落到 config.json，不再创建 jpg 标记文件。
@@ -251,14 +251,14 @@ public class MainActivity extends Activity {
         // 起源服务：让目标 App 经 127.0.0.1 读视频，绕开作用域存储的 EACCES
         try {
             startForegroundService(new android.content.Intent(this,
-                    io.github.hpjxiangbabang.vcam.server.SourceServerService.class));
+                    io.virtualcam.android.server.SourceServerService.class));
         } catch (Throwable t) {
             Toast.makeText(this, "源服务启动失败: " + t, Toast.LENGTH_SHORT).show();
         }
         // 起悬浮控制窗服务（显隐由目标 App 相机接管状态驱动；进程由源服务前台保活）
         try {
             startService(new android.content.Intent(this,
-                    io.github.hpjxiangbabang.vcam.server.FloatingControlService.class));
+                    io.virtualcam.android.server.FloatingControlService.class));
         } catch (Throwable ignored) {
         }
     }

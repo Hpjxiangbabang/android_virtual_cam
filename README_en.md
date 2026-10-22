@@ -1,69 +1,120 @@
-# android_virtual_cam
+# VCAM Next
 
 [简体中文](./README.md) | [繁體中文](./README_tc.md) | [English](./README_en.md)
 
-Maintained fork of [w2016561536/android_virtual_cam](https://github.com/w2016561536/android_virtual_cam). The package id is `io.github.hpjxiangbabang.vcam` (VCAM Next), so it does not replace the original module. See the Chinese README for the new in-app log and aspect-fit switch.
+[![Stars](https://img.shields.io/github/stars/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/network/members)
+[![Last commit](https://img.shields.io/github/last-commit/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/commits/master)
+[![Release](https://img.shields.io/github/v/release/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![License](https://img.shields.io/github/license/Hpjxiangbabang/android_virtual_cam?style=flat-square)](./LICENSE)
+[![Android](https://img.shields.io/badge/Android-10%2B-3DDC84?style=flat-square&logo=android&logoColor=white)](#requirements)
 
-A virtual camera based on Xposed
+[![Download APK](https://img.shields.io/badge/Download-APK-2ea44f?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![Issues](https://img.shields.io/badge/Issues-report-1f6feb?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/issues)
+[![Upstream](https://img.shields.io/badge/Upstream-w2016561536-6e7681?style=for-the-badge)](https://github.com/w2016561536/android_virtual_cam)
 
-## DO NOT USE FOR ANY ILLEGAL PURPOSE, YOU NEED TO TAKE ALL RESPONSIBILITY AND CONSEQUENCE!
+VCAM Next is an LSPosed module that replaces the camera input of a target app. Preview and still capture use the selected video or image.
 
-## Supported platform
+It is intended for demonstrations, integration work, and capture flows that need a repeatable image. Do not use it for any illegal purpose. You are responsible for how you use it.
 
-- Android 5.0+
+## Capabilities
 
-## Usage
+**Preview**  
+When a target app requests a camera preview, the module outputs the current material.
 
-1. Install this module , enable it in Xposed . Lsposed and other framework which have a scope list, you need to choose target app instead of System Framework.
+**Still capture**  
+The captured image is the frame currently playing.
 
-2. In system Setting, authorize target to access local storage, and force stop the app. If the app does not request this permission, see step3.
+**Library**  
+Add a video or an image with the system file picker. An image is converted to a looping video. The module supplies the media, so the target app does not need storage permission.
 
-3. open target app, if the app does not have the permission to access local storage. There will be a toast message showing that `Camera1` directory has been redirect to app's private directory `/[INTERNEL_STORAGE]/Android/data/[package_name]/files/Camera1/`. If there isn't the message, the default `Camera1` directory is `/[INTERNEL_STORAGE]/DCIM/Camera1/`. If the directory doesn't exist. Please create it by yourself.
+**Per-app assignment**  
+Assign a material to one app. Apps without an assignment use the current material.
 
-> Attention: `Camera1` in the private directory only works for single app.
+**Playback**  
+The main screen and the floating control provide previous, pause, next, and a choice between the microphone and the video soundtrack. A change takes effect while the camera is in use. The floating control collapses to a draggable icon.
 
-4. Open the camera in target app. There will be a toast message showing the resolution (宽width: , 高height:) . And you need to adjust the replacing video's resolution to make them same. Name it as `virtual.mp4`, put it under `Camera1` directory.
+**Framing**  
+When the material size differs from the resolution the app requested, the image is fitted inside that frame. The remaining area is black, and the picture is not stretched. With the option off, the material is sent at its original size and the two sizes need to match.
 
-5. If there is a toast message when you take photos in app ("发现拍照")，it shows the photo's resolution. You need to prepare a photo which has the same resolution. Name it as `1000.bmp` . Put it under `Camera1` directory. (it support other image format renamed to bmp ). If there isn't a toast message , `1000.bmp` will have nothing to do with replacing capture.
+## Requirements
 
-6. If you need to play video's sound, create `./DCIM/Camera1/Camera1/virtual.mp4` under `Camera1` directory. (Global real-time effective)
+| Item | Requirement |
+| --- | --- |
+| Access | Root |
+| Framework | [LSPosed](https://github.com/LSPosed/LSPosed), or another compatible Xposed environment |
+| System | Android 10 or later recommended. Minimum is Android 5.0 |
+| Scope | Enable only the apps whose camera should be replaced |
 
-7. If you need to turn off the module temporarily, create `./DCIM/Camera1/Camera1/virtual.mp4` under `Camera1` directory. (Global real-time effective)
+Preview and still capture have been verified on Android 14.
 
-8. If you find toast messages annoying, you can create a `no_toast.jpg` file in the `/[INTERNEL_STORAGE]/DCIM/Camera1/` directory. (Global real-time effective)
+## Installation
 
-9. The directory redirection message is displayed only once by default. If you miss the toast message of directory redirection, you can create a `force_show.jpg` file in the `/[INTERNEL_STORAGE]/DCIM/Camera1/` directory to override the default setting. (Global real-time effective)
+Application id: `io.virtualcam.android`
 
-10. If you need to allocate videos for each application, you can create `private_dir.jpg` in the `/[INTERNEL_STORAGE]/DCIM/Camera1/` directory to enforce apps use private directory. (Global real-time effective)
+1. Install the APK from [Releases](https://github.com/Hpjxiangbabang/android_virtual_cam/releases). A release build matches the published version. Changes that are not yet released have to be built from source.
+2. Enable VCAM Next in LSPosed and select the target app.
+3. Grant storage and overlay permissions.
+4. Force-stop the target app, then open its camera again.
 
-> Note: the configuration of 6 ~ 10 are in the application. You can quickly configure them in the application or create files manually.
+After the application id change, the system treats this build as a new app. If an older module with the same display name is still installed, or the original module `com.example.vcam` is still enabled, disable it in LSPosed first. Two modules cannot take over the same camera.
 
-## FAQ
+The module stays running as a foreground service. Open VCAM Next again after the service stops.
 
-Q1. The problems of front camera?  
-A1. In most cases , the video for replacing front camera need to be flipped horizontally and rotated right 90 degrees. The video's resolution **after being processed** need to same with that in toast message.  But in some came, it doesn't need to make adjustment, so you need to judge it according to situation.
+## Use
 
-Q2. Black screen ? Open camera fail ?  
-A2. Till now ,there are a few apps that can't be hooked, especially the system camera. Or it caused by wrong `Camera1` directory（Whether two levels of Camera1 directory were created, like `./DCIM/Camera1/Camera1/virtual.mp4`, only one level is needed）.
+1. Add a video or an image.
+2. To treat one app differently, assign its material under app binding.
+3. Open the camera in the target app.
+4. While it is in use, switch material, pause, or change the audio source from the floating control or the main screen.
 
-Q3. Blurred screen?  
-A3. The resolution of video is wrong.
+The main screen shows the current material. While that field is empty, camera input is not replaced.
 
-Q4. Distorted picture?  
-A4. Please use the video editing software to modify the original video to match the screen.
+Settings and logs record the resolution requested by the target app. An identical entry updates its timestamp instead of adding another line.
 
-Q5. `disable.jpg` invalid?  
-A5. If the application version `<=4.0`, then the control files in the `[INTERNEL_STORAGE]/DCIM/Camera1` directory will take effect for the applications that **have access to storage permissions**, and for the rest of the applications without permission, control files should be created in the **private directory**  
-If the app version `>=4.1`, it should be created in `[INTERNEL_STORAGE]/DCIM/Camera1` regardless of whether the target app has permissions.
+## Configuration
 
-## Question report:
+The configuration file is `Internal storage/DCIM/Camera1/config.json`.
 
-raise it in issues directly. If it is a bug, please attach with Xposed **modules** log.
+The framing switch on screen selects two of the output modes. The configuration file can also select the other two:
 
-## Credit
+| `fit_mode` | Output |
+| --- | --- |
+| `0` | Fit inside the requested frame, with black bars |
+| `1` | Scale up to cover the frame, cropping the overflow |
+| `2` | Stretch to fill the frame |
+| `3` | Send the material at its original size |
 
-Provide hook method: https://github.com/wangwei1237/CameraHook
+When upgrading from a build that used marker files, the state of `disable.jpg`, `no_toast.jpg`, `no-silent.jpg`, and `fit_inside.jpg` is written into `config.json`. The configuration file is authoritative after that.
 
-H.264 hardware decode： https://github.com/zhantong/Android-VideoToImages
+## Build from source
 
-JPEG-YUV convert： https://blog.csdn.net/jacke121/article/details/73888732  
+JDK 17 or later is required.
+
+```bash
+./gradlew assembleDebug
+```
+
+The APK is written to `app/build/outputs/apk/debug/`.
+
+## Troubleshooting
+
+| Symptom | What to check |
+| --- | --- |
+| The live camera is still shown, or the preview is black | The target app is selected in LSPosed and has been force-stopped, the current material is not empty, and no other virtual-camera module is enabled |
+| The picture does not change after a new material is selected | Wait a few seconds. If it still does not update, close the target app and open it again |
+| The floating control does not appear | Grant “Display over other apps”. The control stays hidden when this module is not handling that camera |
+| The front-camera image has the wrong orientation | Some apps flip the front preview horizontally and rotate it 90°. Prepare the material for the orientation that app actually shows |
+
+## Issues
+
+Report problems in [Issues](https://github.com/Hpjxiangbabang/android_virtual_cam/issues). Include the system version, the target app, the entries under Settings and logs, and this module’s log from LSPosed.
+
+## License
+
+Released under the [MIT](./LICENSE) license. Copyright remains with the original author, w2016561536 (2021), and later contributors.
+
+VCAM Next continues [android_virtual_cam](https://github.com/w2016561536/android_virtual_cam). Materials are managed in the app, can be assigned per application, and can be switched during playback. Still capture uses the current frame, and a size mismatch keeps the picture in proportion.
+
+- Hook approach based on [CameraHook](https://github.com/wangwei1237/CameraHook)
+- H.264 hardware decoding based on [Android-VideoToImages](https://github.com/zhantong/Android-VideoToImages)

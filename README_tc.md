@@ -1,72 +1,120 @@
-# android_virtual_cam
+# VCAM Next
 
 [简体中文](./README.md) | [繁體中文](./README_tc.md) | [English](./README_en.md)
 
-這是 [w2016561536/android_virtual_cam](https://github.com/w2016561536/android_virtual_cam) 的繼續維護版本。安裝包名是 `io.github.hpjxiangbabang.vcam`（VCAM Next），不會覆蓋原模組。新增的應用內記錄和等比放入開關見簡體中文 README。
+[![Stars](https://img.shields.io/github/stars/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/network/members)
+[![Last commit](https://img.shields.io/github/last-commit/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/commits/master)
+[![Release](https://img.shields.io/github/v/release/Hpjxiangbabang/android_virtual_cam?style=flat-square)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![License](https://img.shields.io/github/license/Hpjxiangbabang/android_virtual_cam?style=flat-square)](./LICENSE)
+[![Android](https://img.shields.io/badge/Android-10%2B-3DDC84?style=flat-square&logo=android&logoColor=white)](#環境要求)
 
-基於Xposed的虛擬攝影機
+[![下載 APK](https://img.shields.io/badge/下載-APK-2ea44f?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/releases)
+[![回報問題](https://img.shields.io/badge/回報-Issues-1f6feb?style=for-the-badge)](https://github.com/Hpjxiangbabang/android_virtual_cam/issues)
+[![上游倉庫](https://img.shields.io/badge/上游-w2016561536-6e7681?style=for-the-badge)](https://github.com/w2016561536/android_virtual_cam)
 
-# 請勿用於任何非法用途，所有後果自負。
+VCAM Next 是一個 LSPosed 模組，用來替換目標應用程式的相機輸入。應用程式開啟相機時，預覽和拍照都使用已選定的影片或圖片。
 
-## 支援平臺：
+適用於需要可重複畫面的展示、聯調和拍攝流程。請勿用於任何違法用途，使用者自行承擔使用後果。
 
-- 安卓5.0+
+## 功能
 
-## 使用方法
+**預覽**  
+目標應用程式請求相機預覽時，輸出目前素材。
 
-1. 安裝此模組，並在Xposed中啟用此模組，Lsposed等包含作用域的框架需要選擇目標app，無需選擇系統框架。
+**拍照**  
+拍攝結果為目前播放幀。
 
-2. 在系統設定中，授予目標應用讀取本機儲存的許可權，並強制結束目標應用程式。 若應用程式未申請此許可權，請見步驟3。
+**素材庫**  
+透過系統檔案選擇器新增影片或圖片。圖片會轉為循環影片。素材由模組提供，目標應用程式不需要儲存權限。
 
-3. 打開目標應用，若應用未能獲得讀取儲存的許可權，則會以氣泡消息提示，`Camera1`目錄被重新導向至應用程式私有目錄`/[內部儲存]/Android/data/[應用包名]/files/Camera1/`。 若未提示，則預設`Camera1`目錄為`/[內部儲存]/DCIM/Camera1/`。 若目錄不存在，請手動建立。
+**按應用程式指定**  
+可為單一應用程式指定素材。未指定的應用程式使用目前素材。
 
-> 注意：私有目錄下的`Camera1`僅對該應用單獨生效。
+**播放控制**  
+主畫面和懸浮控制列提供上一段、暫停、下一段，以及麥克風或影片音軌。切換在相機使用過程中生效。懸浮控制列收合時為一個可拖動圖示。
 
-4. 在目標應用中打開相機預覽，會以氣泡消息提示「寬：……高：……」，需要根據此解析度資料製作取代影片，放置於`Camera1`目錄下，並命名為`virtual.mp4`，若打開相機並無提示消息，則無需調整影片解析度。
+**畫面比例**  
+素材尺寸與應用程式請求的解析度不一致時，預設按比例放入，空白處為黑邊，畫面不拉伸。關閉該選項後按素材原始尺寸輸出，此時兩者需要一致。
 
-5. 若在目標應用中拍照卻顯示真實圖片，且出現氣泡消息`發現拍照`和解析度，則需根據此解析度資料準備一張照片，命名為`1000.bmp`，放入`Camera1`目錄下（支援其它格式改尾碼為bmp）。 如果拍照時無氣泡消息提示，則`1000.bmp`無效。
+## 環境要求
 
-6. 如果需要播放影片的聲音，需在`/[內部儲存]/DCIM/Camera1/`目錄下建立`no-silent.jpg`檔案。（全域即時生效）
+| 項目 | 要求 |
+| --- | --- |
+| 權限 | 已 root |
+| 框架 | [LSPosed](https://github.com/LSPosed/LSPosed)，或其他相容的 Xposed 環境 |
+| 系統 | 建議 Android 10 及以上，最低 Android 5.0 |
+| 作用範圍 | 只勾選需要替換相機的應用程式 |
 
-7. 如果需要臨時停用影片取代，需在`/[內部儲存]/DCIM/Camera1/`目錄下建立`disable.jpg`檔案。（全域即時生效）
+預覽與拍照已在 Android 14 上驗證。
 
-8. 如果覺得Toast消息煩，可以在`/[內部儲存]/DCIM/Camera1/`目錄下建立`no_toast.jpg`檔案。 （全域即時生效）
+## 安裝
 
-9. 目錄重定向消息預設只顯示一次，如果錯過了目錄重定向的Toast消息，可以在`/[內部儲存]/DCIM/Camera1/`目錄下建立`force_show.jpg`檔案來覆蓋預設設定。 （全域即時生效）
+應用程式套件名稱：`io.virtualcam.android`
 
-10.如果需要為每一個應用程式分配影片，可以在`/[內部儲存]/DCIM/Camera1/`目錄下建立`private_dir.jpg`強制使用應用程式私有目錄。 （全域即時生效）
+1. 從 [Releases](https://github.com/Hpjxiangbabang/android_virtual_cam/releases) 安裝 APK。發行包對應當前已發布版本；倉庫中尚未發布的改動需自行編譯。
+2. 在 LSPosed 中啟用 VCAM Next，並勾選目標應用程式。
+3. 授予儲存權限和懸浮窗權限。
+4. 強制停止目標應用程式後，重新開啟其相機。
 
->注意：6~10的配寘開關均在應用程式中，您可以快捷地在應用程式中配寘，也可以手動建立檔案。
+套件名稱變更後，系統會將其視為新應用程式。裝置上若仍有同名舊模組，或套件名稱為 `com.example.vcam` 的原版模組，請先在 LSPosed 中停用。兩個模組不能同時接管同一相機。
 
+模組透過前景服務保持執行。服務結束後，重新開啟 VCAM Next。
 
-## 常見問題
+## 使用
 
-A1. 前置攝影機方向問題？  
-Q1.大多數情況下，取代前置攝影機的影片需要水準翻轉並右旋90度，並且影片***處理後***的解析度應與氣泡消息內解析度相同。 但有時這並不需要，具體請根據實際情況判斷。
+1. 新增影片或圖片。
+2. 需要區分應用程式時，在「應用綁定」中指定素材。
+3. 開啟目標應用程式的相機。
+4. 使用過程中，透過懸浮控制列或主畫面切換素材、暫停，或更改聲音來源。
 
-Q2. 畫面黑屏，相機啟動失敗？  
-A2. 現時有些應用並不能成功取代（特別是系統相機）。 或者是因為影片路徑不對(是否建立了兩級Camera1目錄，如`./DCIM/Camera1/Camera1/virtual.mp4`，但只需要一級目錄)。
+主畫面顯示目前素材。此處為空時，相機輸入不會被替換。
 
-Q3. 畫面花屏？  
-A3. 影片解析度不對。
+「設定與日誌」記錄目標應用程式請求的解析度。內容相同的記錄只更新時間。
 
-Q4. 畫面扭曲，變形？  
-A4. 請使用剪輯軟體修改原影片來匹配螢幕。
+## 設定
 
-Q5. 建立`disable. jpg`無效？  
-A5. 如果應用版本`<=4.0`，那麼`[內部儲存]/DCIM/Camera1`目錄下的檔案對**具有訪問儲存許可權**的應用生效，其餘無許可權應用應在**私有目錄**下建立  
-如果應用版本`>=4.1`，那麼應在`[內部儲存]/DCIM/Camera1`建立，無論目標應用是否具有許可權。
+設定檔位於 `內部儲存/DCIM/Camera1/config.json`。
 
+介面中的比例開關對應兩種輸出。設定檔還可指定另外兩種：
 
-## 迴響問題
+| `fit_mode` | 輸出 |
+| --- | --- |
+| `0` | 等比放入，保留黑邊 |
+| `1` | 等比放大至鋪滿，裁去超出部分 |
+| `2` | 拉伸至鋪滿 |
+| `3` | 按素材原始尺寸輸出 |
 
-請直接在issues中迴響，如果為BUG迴響，請附帶Xposed**模組**日誌資訊。
+從使用標記檔的舊版升級時，`disable.jpg`、`no_toast.jpg`、`no-silent.jpg`、`fit_inside.jpg` 的狀態會寫入 `config.json`。此後以設定檔為準。
 
+## 從原始碼建置
 
-##致謝：
+需要 JDK 17 或更高版本。
 
-提供HOOK思路： https://github.com/wangwei1237/CameraHook
+```bash
+./gradlew assembleDebug
+```
 
-H264硬解碼： https://github.com/zhantong/Android-VideoToImages
+安裝包位於 `app/build/outputs/apk/debug/`。
 
-JPEG轉YUV： https://blog.csdn.net/jacke121/article/details/73888732
+## 排查
+
+| 現象 | 處理 |
+| --- | --- |
+| 仍是真實畫面，或黑屏 | 確認 LSPosed 已勾選該應用程式，並在強制停止後重新開啟；確認目前素材不為空；確認其他虛擬相機模組已停用 |
+| 更換素材後畫面未變 | 等待數秒。若畫面仍不更新，結束目標應用程式後重新開啟 |
+| 懸浮控制列未出現 | 授予「顯示在其他應用程式上層」。模組未接管該相機時不顯示控制列 |
+| 前置畫面方向不符 | 部分應用程式會將前置預覽水平翻轉並旋轉 90°。按該應用程式的實際方向準備素材 |
+
+## 回報
+
+請透過 [Issues](https://github.com/Hpjxiangbabang/android_virtual_cam/issues) 提交。說明系統版本和目標應用程式，並附上「設定與日誌」中的記錄，以及 LSPosed 中本模組的日誌。
+
+## 許可
+
+本專案以 [MIT](./LICENSE) 許可發布。版權歸原作者 w2016561536（2021）及後續貢獻者所有。
+
+VCAM Next 在 [android_virtual_cam](https://github.com/w2016561536/android_virtual_cam) 上繼續開發：素材在應用程式內管理，可按應用程式指定來源，播放過程中可切換，拍照使用目前幀，並在解析度不一致時保持畫面比例。
+
+- 掛鉤方式參考 [CameraHook](https://github.com/wangwei1237/CameraHook)
+- H.264 硬解碼參考 [Android-VideoToImages](https://github.com/zhantong/Android-VideoToImages)

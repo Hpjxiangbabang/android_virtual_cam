@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.server;
+package io.virtualcam.android.server;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -22,10 +22,10 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import de.robv.android.xposed.XposedBridge;
-import io.github.hpjxiangbabang.vcam.AppLog;
-import io.github.hpjxiangbabang.vcam.R;
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.config.VcamConfig;
+import io.virtualcam.android.AppLog;
+import io.virtualcam.android.R;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.config.VcamConfig;
 
 /**
  * 本地视频源 HTTP 服务（P1 存储权限解法）。

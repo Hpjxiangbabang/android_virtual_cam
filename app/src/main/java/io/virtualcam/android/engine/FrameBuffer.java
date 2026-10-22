@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.engine;
+package io.virtualcam.android.engine;
 
 /**
  * 单槽"最新帧"缓冲，替代旧实现的忙等（while(data_buffer == null) {}）。

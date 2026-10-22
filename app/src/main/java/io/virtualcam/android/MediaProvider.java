@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -10,8 +10,8 @@ import android.util.Log;
 
 import java.io.File;
 
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.server.SourceResolver;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.server.SourceResolver;
 
 /**
  * 配置与媒体文件的跨进程通道（P2）。
@@ -25,7 +25,7 @@ import io.github.hpjxiangbabang.vcam.server.SourceResolver;
  */
 public class MediaProvider extends ContentProvider {
 
-    public static final String AUTHORITY = "io.github.hpjxiangbabang.vcam.media";
+    public static final String AUTHORITY = "io.virtualcam.android.media";
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
     @Override
@@ -70,10 +70,10 @@ public class MediaProvider extends ContentProvider {
             ControlState.cameraActive = active;
             try {
                 android.util.Log.i("VCAM-FLOAT", "cameraState -> " + active
-                        + " running=" + io.github.hpjxiangbabang.vcam.server.FloatingControlService.isRunning());
+                        + " running=" + io.virtualcam.android.server.FloatingControlService.isRunning());
             } catch (Throwable ignored) {
             }
-            io.github.hpjxiangbabang.vcam.server.FloatingControlService
+            io.virtualcam.android.server.FloatingControlService
                     .onCameraState(getContext(), active);
             return new Bundle();
         }

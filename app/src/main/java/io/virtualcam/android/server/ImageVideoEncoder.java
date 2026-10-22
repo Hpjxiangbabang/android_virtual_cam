@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.server;
+package io.virtualcam.android.server;
 
 import android.graphics.Bitmap;
 import android.media.MediaCodec;

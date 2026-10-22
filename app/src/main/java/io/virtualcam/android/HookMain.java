@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam;
+package io.virtualcam.android;
 
 import android.Manifest;
 import android.app.Application;
@@ -19,10 +19,10 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.config.VcamConfig;
-import io.github.hpjxiangbabang.vcam.hook.Camera1Hook;
-import io.github.hpjxiangbabang.vcam.hook.Camera2Hook;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.config.VcamConfig;
+import io.virtualcam.android.hook.Camera1Hook;
+import io.virtualcam.android.hook.Camera2Hook;
 
 /**
  * 模块入口（P1 瘦身）。
@@ -272,7 +272,7 @@ public class HookMain implements IXposedHookLoadPackage {
         sSourceCheckAt = 0; // 源可用性重新判定
     }
 
-    /** content://io.github.hpjxiangbabang.vcam.media → getConfig */
+    /** content://io.virtualcam.android.media → getConfig */
     private static VcamConfig providerConfig() {
         Context ctx = sAppContext;
         if (ctx == null) {

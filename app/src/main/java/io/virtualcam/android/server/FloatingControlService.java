@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.server;
+package io.virtualcam.android.server;
 
 import android.app.Service;
 import android.content.Intent;
@@ -14,11 +14,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import de.robv.android.xposed.XposedBridge;
-import io.github.hpjxiangbabang.vcam.AppLog;
-import io.github.hpjxiangbabang.vcam.ControlState;
-import io.github.hpjxiangbabang.vcam.MediaProvider;
-import io.github.hpjxiangbabang.vcam.config.ConfigStore;
-import io.github.hpjxiangbabang.vcam.config.VcamConfig;
+import io.virtualcam.android.AppLog;
+import io.virtualcam.android.ControlState;
+import io.virtualcam.android.MediaProvider;
+import io.virtualcam.android.config.ConfigStore;
+import io.virtualcam.android.config.VcamConfig;
 
 /**
  * 悬浮控制窗（P2.1c，双态）：

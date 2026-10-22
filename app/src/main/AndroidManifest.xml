@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.hpjxiangbabang.vcam">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -23,12 +22,12 @@
 
         <provider
             android:name=".LogProvider"
-            android:authorities="io.github.hpjxiangbabang.vcam.log"
+            android:authorities="io.virtualcam.android.log"
             android:exported="true" />
 
         <provider
             android:name=".MediaProvider"
-            android:authorities="io.github.hpjxiangbabang.vcam.media"
+            android:authorities="io.virtualcam.android.media"
             android:exported="true"
             android:grantUriPermissions="true" />
 
@@ -45,7 +44,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="安卓虚拟摄像头继续维护版" />
+            android:value="将目标应用的相机预览和拍照替换为指定的视频或图片" />
         <meta-data
             android:name="xposedminversion"
             android:value="51" />

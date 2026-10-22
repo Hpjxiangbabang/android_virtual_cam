@@ -1,4 +1,4 @@
-package io.github.hpjxiangbabang.vcam.config;
+package io.virtualcam.android.config;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
